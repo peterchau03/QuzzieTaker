@@ -1,0 +1,94 @@
+﻿@page
+@model MidTermTest.Pages.Question_ManagementModel
+@{
+    ViewData["Title"] = "Question Management";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Question Management</h1>
+</div>
+
+<div class="container">
+    <form method="post" asp-page-handler="LoadQuestions">
+        <div class="row">
+            <div class="col-md-8">
+                <label asp-for="QuestionOptionsId">Select Question ID: </label>
+                <select asp-for="QuestionOptionsId" asp-items="Model.QuestionOptions"
+                class="form-select" onchange="this.form.submit()"></select>
+            </div>
+        </div>
+    </form>
+
+    @if (Model.SelectedQuestion != null)
+    {
+        <form method="post" asp-page-handler="Save">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="QuestionOptionsId" />
+            <input type="hidden" asp-for="SelectedQuestion.Id" />
+
+            <div class="mb-3">
+                <label asp-for="SelectedQuestion.Description" class="form-label">Question Description</label>
+                <input type="text" asp-for="SelectedQuestion.Description" class="form-control"/>
+                <span asp-validation-for="SelectedQuestion.Description" class="text-danger"></span>
+            </div>
+
+            <h5 class="mt-4">Answers</h5>
+            <div>
+                @for (var i = 0; i < Model.Answer.Count; i++)
+                {
+                    <div class="mb-3 p-3">
+                        <input type="hidden" asp-for="@Model.Answer[i].Id" />
+                        <input type="hidden" asp-for="@Model.Answer[i].QuestionId" />
+
+                        <div class="mb-2">
+                            <label asp-for="@Model.Answer[i].Text" class="form-label">Answer Text:</label>
+                            <input type="text" asp-for="@Model.Answer[i].Text" class="form-control" />
+                            <span asp-validation-for="@Model.Answer[i].Text" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-check">
+                            <input asp-for="@Model.Answer[i].isCorrect" class="form-check-input" />
+                            <label class="form-check-label">Correct Answer</label>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-4">Save</button>
+        </form>
+
+    }
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Description</th>
+                            <th>Answers</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var question in Model.Questions)
+                        {
+                            <tr>
+                                <td>@question.Id</td>
+                                <td>@question.Description</td>
+                                <td>
+                                    <ul class="list-unstyled">
+                                        @foreach (var answer in question.Answers)
+                                        {
+                                            <li class="@(answer.isCorrect ? "text-success fw-bold" : "")">
+                                                @answer.Text
+                                            </li>
+                                        }
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+
+</div>

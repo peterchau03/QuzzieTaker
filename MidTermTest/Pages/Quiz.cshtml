@@ -1,0 +1,63 @@
+﻿@page
+@model MidTermTest.Pages.QuizModel
+@{
+    ViewData["Title"] = "Quiz";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Quiz</h1>
+</div>
+
+<div class="container">
+    <div class="mb-3 mt-3">
+        <form method="post" asp-page-handler="LoadQuestions">
+            <label asp-for="@Model.testTakerName" class="form-label">Test Taker Name: </label>
+            <input asp-for="@Model.testTakerName" class="form-control" />
+            <span asp-validation-for="@Model.testTakerName" class="text-danger"></span>
+            <button type="submit" class="btn btn-primary">Load Questions</button>
+        </form>
+        
+    </div>
+</div>
+
+@if (Model.testTakerScore > 0)
+{
+    <div class="alert alert-success">
+        <h4>Your last score: @Model.testTakerScore%</h4>
+        <p>You got @(Model.testTakerScore* Model.questions.Count / 100) out of @Model.questions.Count questions correct</p>
+    </div>
+}
+
+@if (Model.questionsLoaded)
+{
+    <div class="container">
+        <form method="post" asp-page-handler="Submit">
+            @for (var i = 0; i < Model.questions.Count; i++)
+            {
+                <div class=" = mt-4">
+                    <span class="fw-bold"> Question @(i+1):</span> <span>@Model.questions[i].Description</span>
+                    <div class="mt-1">
+                        @for (var j = 0; j < Model.questions[i].Answers.Count; j++ )
+                        {
+                            var answerList = Model.questions[i].Answers.ToList();
+                           <div class="form-check">
+                                <input class="form-check-input" type="radio"
+                                       asp-for="@Model.selectedAnswers[i]" value="@answerList[j].Id"
+                                id="answer-@i-@j" />
+
+                                <label class="form-check-label" for="answer-@i-@j">
+                                    @answerList[j].Text
+                                </label>
+                           </div>
+                        }
+                    </div>
+                </div>
+            }
+
+            <button type="submit" class="btn btn-primary mt-4">Submit Quiz</button>
+        </form>
+
+
+    </div>
+}
+

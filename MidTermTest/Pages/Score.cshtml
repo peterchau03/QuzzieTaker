@@ -1,0 +1,37 @@
+﻿@page
+@model MidTermTest.Pages.ScoreModel
+@{
+    ViewData["Title"] = "Scoreboard";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Scoreboard</h1>
+</div>
+
+@if(Model.ScoreBoards != null)
+{
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var score in Model.ScoreBoards)
+                    {
+                        <tr>
+                            <td>@score.Id</td>
+                            <td>@score.Name</td>
+                            <td>@score.Score</td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+}
