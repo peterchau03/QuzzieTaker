@@ -7,7 +7,7 @@ using QuizzieTaker.Data;
 
 #nullable disable
 
-namespace MidTermTest.Migrations
+namespace QuizzieTaker.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -21,7 +21,7 @@ namespace MidTermTest.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MidTermTest.Models.Answer", b =>
+            modelBuilder.Entity("QuizzieTaker.Models.Answer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -46,7 +46,7 @@ namespace MidTermTest.Migrations
                     b.ToTable("Answers");
                 });
 
-            modelBuilder.Entity("MidTermTest.Models.Question", b =>
+            modelBuilder.Entity("QuizzieTaker.Models.Question", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -84,9 +84,9 @@ namespace MidTermTest.Migrations
                     b.ToTable("ScoreBoards");
                 });
 
-            modelBuilder.Entity("MidTermTest.Models.Answer", b =>
+            modelBuilder.Entity("QuizzieTaker.Models.Answer", b =>
                 {
-                    b.HasOne("MidTermTest.Models.Question", "Question")
+                    b.HasOne("QuizzieTaker.Models.Question", "Question")
                         .WithMany("Answers")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -95,7 +95,7 @@ namespace MidTermTest.Migrations
                     b.Navigation("Question");
                 });
 
-            modelBuilder.Entity("MidTermTest.Models.Question", b =>
+            modelBuilder.Entity("QuizzieTaker.Models.Question", b =>
                 {
                     b.Navigation("Answers");
                 });

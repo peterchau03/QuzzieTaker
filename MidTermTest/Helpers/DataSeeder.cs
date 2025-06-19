@@ -1,4 +1,4 @@
-﻿using MidTermTest.Models;
+﻿using QuizzieTaker.Models;
 using QuizzieTaker.Data;
 
 namespace QuizzieTaker.Helpers

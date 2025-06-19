@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace MidTermTest.Migrations
+namespace QuizzieTaker.Migrations
 {
     /// <inheritdoc />
     public partial class Initial_Create : Migration

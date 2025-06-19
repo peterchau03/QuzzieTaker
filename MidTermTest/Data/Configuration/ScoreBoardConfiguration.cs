@@ -1,4 +1,4 @@
-﻿using MidTermTest.Models;
+﻿using QuizzieTaker.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
